@@ -17,6 +17,7 @@ from subprocess import (
 import subprocess
 import sys
 import threading
+import time
 from collections import OrderedDict
 from textwrap import dedent
 
@@ -399,6 +400,8 @@ class Git(LazyMixin):
             stderr = force_bytes(stderr)
 
             status = self.proc.wait()
+            # wait a bit because of a race condition with the processing of output
+            time.sleep(2)
 
             def read_all_from_possibly_closed_stream(stream):
                 try:
