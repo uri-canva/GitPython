@@ -725,6 +725,7 @@ class Remote(LazyMixin, Iterable):
                 output.append(PushInfo._from_line(self, line))
             except ValueError:
                 # If an error happens, additional info is given which we parse below.
+                log.debug("Could not parse output into PushInfo: %s", line)
                 pass
 
         handle_process_output(proc, stdout_handler, progress_handler, finalizer=None, decode_streams=False)
